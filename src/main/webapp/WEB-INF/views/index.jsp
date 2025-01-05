@@ -7,6 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="/style/style.css">
+  <link rel="icon" href="icon.png" type="image/png">
 
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -77,16 +78,14 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="tab1Id" role="tabpanel">
         hello world
+		<img src="icon.png">
       </div>
       <div class="tab-pane fade" id="tab2Id" role="tabpanel">
 
         <div id="homeMainDiv" class="d-flex flex-column text-white bg-overlay background">
-          <script>
-            // [style.backgroundImage]="'url(' + bgimageurl + ')'"
-            let targetDiv = document.getElementById('homeMainDiv');
-            setTimeout(() => {
-              targetDiv.style.backgroundImage = '/assets/images/homebg.png';
-            }, 1000);
+          <script src="/script/script.js">
+			
+
           </script>
           <!-- Hero Section -->
           <div class="container my-auto text-center">
