@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jidnivai.MCQMaster.entity.User;
+import com.jidnivai.MCQMaster.service.MCQService;
 import com.jidnivai.MCQMaster.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,18 +22,23 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MCQService mcqService;
+
     @GetMapping("/login")
     public String login() {
         return "login.jsp";
     }
 
     @PostMapping("/login")
-    public String setUser(@RequestParam String logginginMail, @RequestParam String logginginPassword) {
-        System.out.println("Email: " + logginginMail);
-        System.out.println("Password: " + logginginPassword);
-        if(userService.login(logginginMail,logginginPassword)!=null){
-
-            return "redirect:/";
+    public String setUser(@RequestParam String logginginMail, @RequestParam String logginginPassword, Model model) {
+        User loggedinUser = userService.login(logginginMail,logginginPassword);
+        if( loggedinUser!=null){
+            model.addAttribute("totalMCQ", mcqService.getTotalMCQ());
+            model.addAttribute("user", loggedinUser);
+           
+            return "index.jsp";
+            
         } else {
             return "user/login";
         }
