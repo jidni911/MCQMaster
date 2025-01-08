@@ -29,35 +29,45 @@
                             <label for="question" class="form-label fw-bold">Question</label>
                             <textarea class="form-control" id="question" name="question" rows="3" required></textarea>
                         </div>
-        
+
                         <!-- Options -->
                         <div class="mb-3">
                             <label for="options" class="form-label fw-bold">Options</label>
                             <div id="options-container">
                                 <div class="input-group mb-2">
                                     <input type="checkbox" name="answers" value="1" class="form-check-input me-2">
-                                    <input type="text" class="form-control" name="options" placeholder="Option 1" required>
+                                    <input type="text" class="form-control" name="options" placeholder="Option 1"
+                                        required>
                                 </div>
                                 <div class="input-group mb-2">
                                     <input type="checkbox" name="answers" value="2" class="form-check-input me-2">
-                                    <input type="text" class="form-control" name="options" placeholder="Option 2" required>
+                                    <input type="text" class="form-control" name="options" placeholder="Option 2"
+                                        required>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-outline-success" onclick="addOption()">Add Option</button>
+                            <button type="button" class="btn btn-outline-success" onclick="addOption()">Add
+                                Option</button>
                         </div>
-        
+
                         <!-- Credit -->
                         <div class="mb-3">
                             <label for="credit" class="form-label fw-bold">Credit</label>
-                            <input type="text" class="form-control" id="credit" name="creditName" readonly value="${user.getName()}">
+                            <input type="text" class="form-control" id="credit" name="credit" readonly
+                                value="${user.id}">
                         </div>
-        
+
                         <!-- Topic -->
                         <div class="mb-3">
                             <label for="topic" class="form-label fw-bold">Topic</label>
                             <input type="text" class="form-control" id="topic" name="topic" required>
                         </div>
-        
+
+                        <!-- Domain -->
+                        <div class="mb-3">
+                            <label for="domain" class="form-label fw-bold">Domain</label>
+                            <input type="text" class="form-control" id="domain" name="domain" required>
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary px-4">Add MCQ</button>
@@ -65,7 +75,7 @@
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
 
     </main>
     <footer>
@@ -74,16 +84,16 @@
 
     <script>
         function addOption() {
-        const container = document.getElementById('options-container');
-        const optionCount = container.children.length + 1;
-        const optionGroup = document.createElement('div');
-        optionGroup.className = 'input-group mb-2';
-        optionGroup.innerHTML = `
-            <input type="checkbox" name="answers" value="${optionCount}" class="form-check-input me-2">
-            <input type="text" class="form-control" name="options" placeholder="Option ${optionCount}" required>
+            const container = document.getElementById('options-container');
+            const optionCount = container.children.length + 1;
+            const optionGroup = document.createElement('div');
+            optionGroup.className = 'input-group mb-2';
+            optionGroup.innerHTML = `
+            <input type="checkbox" name="answers" value="`+ optionCount + `" class="form-check-input me-2">
+            <input type="text" class="form-control" name="options" placeholder="Option `+ optionCount + `" required>
         `;
-        container.appendChild(optionGroup);
-    }
+            container.appendChild(optionGroup);
+        }
     </script>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

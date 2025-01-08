@@ -64,11 +64,7 @@
 
 
 
-      <!-- (Optional) - Place this js code after initializing bootstrap.min.js or bootstrap.bundle.min.js -->
-      <script>
-        var triggerEl = document.querySelector("#navId a");
-        bootstrap.Tab.getInstance(triggerEl).show(); // Select tab by name
-      </script>
+
 
 
 
@@ -80,9 +76,10 @@
       <!-- Tab panes -->
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade  show active" id="tab1Id" role="tabpanel">
-          hello world 
+          hello world
           <div>
-            ${userName}
+            ${user != null ? user.getName() : 'Guest'}
+
           </div>
         </div>
         <div class="tab-pane fade" id="tab2Id" role="tabpanel">
@@ -165,6 +162,9 @@
           <!-- MCQ List Section -->
           <div class="container py-4">
             <div class="row g-4">
+              <c:forEach var="item" items="${MCQs}">
+                ${item}
+              </c:forEach>
               <div *ngFor="let mcq of allMCQs" class="col-md-6 col-lg-4">
                 <div class="card shadow-sm h-100">
                   <div class="card-body d-flex flex-column">
@@ -202,7 +202,7 @@
 
         </div>
         <div class="tab-pane fade" id="tab4Id" role="tabpanel">
-          <div style="background-image: url({{bgimageurl}});
+          <div style="background-image: url(/userbg.png);
  background-repeat: no-repeat;
 background-size: cover;
 background-position: top center;
@@ -214,10 +214,14 @@ background-position: top center;
 
                   <div class="text-danger text-center h1">Users</div>
                   <tr>
-                    <th *ngIf="isAdmin()">ID</th>
+                    <c:if test="${user.getRole() == 'admin'}">
+                      <th>ID</th>
+                    </c:if>
                     <th>Name</th>
                     <th>email</th>
-                    <th *ngIf="isAdmin()">Password</th>
+                    <c:if test="${user.getRole() == 'admin'}">
+                      <th>Password</th>
+                    </c:if>
                     <th>DoB</th>
                     <th>Role</th>
                     <th>Image</th>
@@ -225,30 +229,40 @@ background-position: top center;
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <tr class="moye" *ngFor="let user of allUser ">
-                    <td *ngIf="isAdmin()">{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td *ngIf="isAdmin()">{{ user.password }}</td>
-                    <td>{{ user.dob }}</td>
-                    <td>{{ user.role }}</td>
-                    <td><img [src]="user.image" alt="User Image" width="50" height="50"></td>
-                    <td>
-                      <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
-                        (click)="viewUser(user)">View</a>
-                      <a (click)="viewUser(user)" class="btn btn-outline-warning" data-bs-toggle="modal"
-                        href="#exampleModalToggle2" role="button" *ngIf="isAdmin()">Edit</a>
-                      <a (click)="deleteUser(user.id)" class="btn btn-danger" *ngIf="isAdmin()">Delete</a>
-                    </td>
-                  </tr>
+                  <c:forEach var="user" items="${users}">
+                    <tr class="moye">
+                      <c:if test="${user.getRole() == 'admin'}">
+                        <td>${user.getId()}}</td>
+                      </c:if>
+                      <td>${ user.name }</td>
+                      <td>${ user.email }</td>
+                      <c:if test="${user.getRole() == 'admin'}">
+                        <td>${user.getPassword()}</td>
+                      </c:if>
+                      <td>${ user.dob }</td>
+                      <td>${ user.role }</td>
+                      <td><img [src]="user.image" alt="User Image" width="50" height="50"></td>
+                      <td>
+                        <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+                          (click)="viewUser(user)">View</a>
+                        <a (click)="viewUser(user)" class="btn btn-outline-warning" data-bs-toggle="modal"
+                          href="#exampleModalToggle2" role="button" *ngIf="isAdmin()">Edit</a>
+                        <a (click)="deleteUser(user.id)" class="btn btn-danger" *ngIf="isAdmin()">Delete</a>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                  
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="7" class="text-center">
-                      <button *ngIf="isAdmin()" type="button" class="btn btn-outline-primary btn-lg"
+                      <c:if test="user.role==admin">
+                        <button *ngIf="isAdmin()" type="button" class="btn btn-outline-primary btn-lg"
                         data-bs-toggle="modal" data-bs-target="#addUserModal">
                         Add User
                       </button>
+                      </c:if>
+                      
                     </td>
                   </tr>
                 </tfoot>

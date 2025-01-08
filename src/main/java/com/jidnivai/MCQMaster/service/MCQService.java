@@ -1,5 +1,7 @@
 package com.jidnivai.MCQMaster.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,8 @@ public class MCQService {
     }
     public void saveMCQ(MCQ mcq) {
         mcqRepository.save(mcq);
+    }
+    public List<MCQ> getDemoMCQ() {
+        return mcqRepository.findDemoMCQ();
     }
 }
