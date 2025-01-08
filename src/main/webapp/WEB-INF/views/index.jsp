@@ -15,7 +15,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   </head>
 
-  <body>
+  <body data-bs-theme="light">
     <header class="sticky-top">
       <!-- Nav tabs -->
 
@@ -51,16 +51,32 @@
               </li>
 
             </ul>
-            <form class="d-flex my-2 my-lg-0">
-              <input class="form-control me-sm-2" type="text" placeholder="Search" />
+            <div class="d-flex my-2 my-lg-0">
+              <!-- <input class="form-control me-sm-2" type="text" placeholder="Search" />
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                 Search
+              </button> -->
+              <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="changeTheme()" id="themeButton">
+                Theme
               </button>
-            </form>
+
+            </div>
           </div>
         </div>
       </nav>
 
+      <script>
+        let themeButton = document.getElementById("themeButton");
+        themeButton.innerHTML=localStorage.getItem("theme") || "dark"
+        document.body.setAttribute("data-bs-theme", themeButton.innerHTML == "Light" ? "dark" : "Light")
+        function changeTheme(){
+          
+          document.body.setAttribute("data-bs-theme", themeButton.innerHTML)
+          themeButton.innerHTML=themeButton.innerHTML == "Light" ? "dark" : "Light"
+          localStorage.setItem("theme",themeButton.innerHTML)
+        }
+        
+      </script>
 
 
 
@@ -116,7 +132,7 @@
               <!-- Call-to-Action Buttons -->
               <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
                 <a href="/mcq/create" class="btn btn-primary btn-lg px-4">Add MCQs</a>
-                <a routerLink="/mcq/quiz" class="btn btn-outline-light btn-lg px-4">Take a Test</a>
+                <a href="/mcq/quiz" class="btn btn-outline-light btn-lg px-4">Take a Test</a>
                 <a routerLink="/results" class="btn btn-success btn-lg px-4">View Results</a>
               </div>
             </div>
@@ -139,7 +155,6 @@
             </footer>
           </div>
 
-          <app-user-create></app-user-create>
 
 
         </div>
@@ -152,10 +167,10 @@
           <c:if test="${user.getId()!=null}">
             <!-- Button Section -->
             <div class="text-center py-4">
-              <button class="btn btn-primary btn-lg mx-2" routerLink="/mcq/create">Add MCQ</button>
-              <button class="btn btn-success btn-lg mx-2" routerLink="/mcq/quiz">Start Quiz</button>
-              <button class="btn btn-warning btn-lg mx-2">View Results</button>
-              <button class="btn btn-danger btn-lg mx-2" routerLink="/mcq/manage">Manage</button>
+              <a class="btn btn-primary btn-lg mx-2" href="/mcq/create">Add MCQ</a>
+              <a class="btn btn-success btn-lg mx-2" href="/mcq/quiz">Start Quiz</a>
+              <a class="btn btn-warning btn-lg mx-2">View Results</a>
+              <a class="btn btn-danger btn-lg mx-2" routerLink="/mcq/manage">Manage</a>
             </div>
           </c:if>
 

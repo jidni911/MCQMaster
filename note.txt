@@ -1,0 +1,29 @@
+Trigger Content
+Perfix	Description
+sp-crud	generate crud operations
+sp-crud-controller	generate crud operations with controller
+sp-post	generate post mapping
+sp-get	generate get mapping
+sp-put	generate put mapping
+sp-delete	generate delete mapping
+
+Java Snippets
+Snippet	Purpose
+spring-crudctrl	Spring controller with CRUD actions implemented
+spring-crudrepo	Spring Data JPA CRUD repository with REST api annotation
+spring-jparepo	Spring Data JPA repository with REST api annotation
+spring-entity	JPA entity with ID field
+spring-lombok-entity	JPA entity with ID field and Lombok @Data annotation
+spring-ctrl-getall	Controller GET action for collection
+spring-ctrl-getone	Controller GET action for single item
+spring-ctrl-post	Controller POST action
+spring-ctrl-put	Controller PUT action
+spring-ctrl-delete	Controller DELETE action
+application.properties / application.yaml Snippets
+Snippet	Purpose
+spring-sqlite	SQLite database jdbc url and properties
+spring-sqlserver	SQL Server database jdbc url and properties
+spring-oracle	Oracle database jdbc url and properties
+spring-postgresql	PostgreSQL database jdbc url and properties
+spring-mysql	MySQL database jdbc url and properties
+spring-h2	H2 database jdbc url and properties
