@@ -162,29 +162,35 @@
           <!-- MCQ List Section -->
           <div class="container py-4">
             <div class="row g-4">
-              <c:forEach var="item" items="${MCQs}">
-                ${item}
-              </c:forEach>
-              <div *ngFor="let mcq of allMCQs" class="col-md-6 col-lg-4">
-                <div class="card shadow-sm h-100">
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold mb-3">{{ mcq.question }}</h5>
-                    <div class="mb-3">
-                      <div *ngFor="let option of mcq.options" class="form-check">
-                        <input class="form-check-input" type="radio" name="option{{ mcq.id }}"
-                          id="option{{ mcq.id }}_{{ option }}" />
-                        <label class="form-check-label" for="option{{ mcq.id }}_{{ option }}">
-                          {{ option }}
-                        </label>
+              <c:forEach var="mcq" items="${MCQs}">
+                <div class="col-md-6 col-lg-4">
+                  <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                      <h5 class="card-title fw-bold mb-3">${ mcq.question }</h5>
+                      <div class="mb-3">
+                        <c:forEach var="option" items="${mcq.options}">
+
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="option${ mcq.id }"
+                              id="option{{ mcq.id }}_{{ option }}" />
+                            <label class="form-check-label" for="option{{ mcq.id }}_{{ option }}">
+                              ${ option.text }
+                            </label>
+                          </div>
+
+
+                        </c:forEach>
                       </div>
-                    </div>
-                    <div class="mt-auto text-muted small">
-                      <span class="badge bg-primary">{{ mcq.topic }}</span>
-                      <span class="badge bg-secondary float-end">created by: {{ mcq.credit }}</span>
+                      <div class="mt-auto text-muted small">
+                        <span class="badge bg-primary">${mcq.topic}</span>
+                        <span class="badge bg-primary">${mcq.domain}</span>
+                        <span class="badge bg-secondary float-end">created by: ${mcq.credit.name}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </c:forEach>
+
             </div>
           </div>
 
@@ -251,18 +257,18 @@ background-position: top center;
                       </td>
                     </tr>
                   </c:forEach>
-                  
+
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="7" class="text-center">
                       <c:if test="user.role==admin">
                         <button *ngIf="isAdmin()" type="button" class="btn btn-outline-primary btn-lg"
-                        data-bs-toggle="modal" data-bs-target="#addUserModal">
-                        Add User
-                      </button>
+                          data-bs-toggle="modal" data-bs-target="#addUserModal">
+                          Add User
+                        </button>
                       </c:if>
-                      
+
                     </td>
                   </tr>
                 </tfoot>

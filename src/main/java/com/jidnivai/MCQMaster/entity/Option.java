@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +17,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
+@Table(name = "options")
 public class Option {
     
     @Id
@@ -26,6 +28,7 @@ public class Option {
 
     @ManyToOne
     @JoinColumn(name = "MCQ_ID", referencedColumnName = "id")
+    @ToString.Exclude
     @JsonIgnore
     private MCQ mcq;
 }

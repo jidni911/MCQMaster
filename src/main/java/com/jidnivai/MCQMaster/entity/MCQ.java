@@ -2,6 +2,7 @@ package com.jidnivai.MCQMaster.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -30,6 +31,7 @@ public class MCQ {
     private String question;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "mcq")
+    @ToString.Exclude
     private List<Option> options;
 
     private String answers;

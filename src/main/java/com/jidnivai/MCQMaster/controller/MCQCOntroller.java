@@ -48,6 +48,8 @@ public class MCQCOntroller {
 
 
     ) {
+        MCQ mcq = new MCQ();
+        mcq.setQuestion(question);
         // mcq.setCredit( new User(1L,"demo user","demo@email.com","123123",LocalDate.now(),"img.png","user"));
         // mcqService.saveMCQ(mcq);
         List<Option> options2 = new ArrayList<>();
@@ -55,17 +57,17 @@ public class MCQCOntroller {
             Option option  = new Option();
             option.setSerial((byte) (i+1));
             option.setText(options[i]);
+            option.setMcq(mcq);
             options2.add(option);
         }
-        MCQ mcq = new MCQ();
-        mcq.setQuestion(question);
+
         mcq.setOptions(options2);
         mcq.setAnswers(answers);
         mcq.setCredit(userService.getById(credit));
         mcq.setTopic(topic);
         mcq.setDomain(domain);
 
-        // System.out.println(mcq);
+        System.out.println(mcq);
         mcqService.saveMCQ(mcq);
         return "redirect:/mcq/create?success=true";
     }
