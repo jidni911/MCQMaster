@@ -24,6 +24,29 @@ public interface MCQRepository extends JpaRepository<MCQ,Long>{
 
     @Query("SELECT DISTINCT u FROM User u JOIN u.mcqs m")
     public List<User> findAllDistictCredits();
+
+    @Query("SELECT DISTINCT u FROM User u JOIN u.mcqs m WHERE m.domain IN :domains AND m.topic IN :topics")
+    public List<User> CreditsByTopicAndDomain(@Param("domains") List<String> domains, @Param("topics") List<String> topics);
+
+    @Query("""
+        SELECT m FROM MCQ m 
+        WHERE (:selectedDomains IS NULL OR m.domain IN :selectedDomains)
+          AND (:selectedTopics IS NULL OR m.topic IN :selectedTopics)
+          AND (:selectedCredits IS NULL OR m.credit.id IN :selectedCredits)
+        ORDER BY FUNCTION('RAND') LIMIT :numQuestions
+    """)
+    public List<MCQ> findAllForQuiz(Integer numQuestions, String[] selectedDomains, String[] selectedTopics,
+            Long[] selectedCredits);
+
+    @Query("""
+        SELECT COUNT(m) FROM MCQ m 
+        WHERE (:selectedDomains IS NULL OR m.domain IN :selectedDomains)
+          AND (:selectedTopics IS NULL OR m.topic IN :selectedTopics)
+          AND (:selectedCredits IS NULL OR m.credit.id IN :selectedCredits)
+        ORDER BY FUNCTION('RAND')
+    """)
+    public int countAllForQuiz(String[] selectedDomains, String[] selectedTopics, Long[] selectedCredits);
+
     
 
 

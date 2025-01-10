@@ -1,7 +1,9 @@
 package com.jidnivai.MCQMaster.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,6 @@ import com.jidnivai.MCQMaster.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -91,25 +92,84 @@ public class MCQCOntroller {
         Long id = 1L;//TODO get from request 
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("domains", mcqService.getDomains());
-        model.addAttribute("credits", mcqService.getCredits());
         return "quizForm.jsp";
     }
 
     @PostMapping("/quiz")
     public String quizTaker (
-        @RequestParam Integer numQuestions,
-        @RequestParam String[] selectedDomains,
-        @RequestParam String[] selectedTopics,
-        @RequestParam Long[] selectedCredits
+        @RequestParam(required = false) Integer numQuestions,
+        @RequestParam(required = false) String[] selectedDomains,
+        @RequestParam(required = false) String[] selectedTopics,
+        @RequestParam(required = false) Long[] selectedCredits,
+        @RequestParam String quizMode,//learn,rapid,classic
+        Model model
     ) {
-        // return "quizeTaker.jsp";
-        System.out.println(numQuestions);
-        System.out.println(selectedDomains);
-        System.out.println(selectedTopics);
-        System.out.println(selectedCredits);
-        return "quizForm.jsp";
+        List<MCQ> mcqList = mcqService.getMcqListForQuiz(numQuestions,selectedDomains,selectedTopics,selectedCredits);
+        model.addAttribute("mcqList", mcqList);
+        switch (quizMode) {
+            case "rapid":
+                return "rapidQuizTaker.jsp";
+            case "classic":
+                return "classicQuizTaker.jsp";
+            default:
+                return "learnQuiz.jsp";
+        }
     }
     
+    // /mcq/submitQuiz
+    @PostMapping("/submitQuiz")
+    public String submitQuiz(@RequestParam Map<String, String> userAnswers, Model model) {
+        // Iterate through the userAnswers map
+        int correctAnswers = 0;
+        int attemptedQuestions = 0;
+        Map<MCQ, Byte> userMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : userAnswers.entrySet()) {
+            Long questionId = Long.parseLong(entry.getKey()); // Question ID
+
+
+            Byte selectedOption = null; 
+            System.out.println(entry.getValue());
+            if (!entry.getValue().isEmpty()) {
+                attemptedQuestions++;
+                selectedOption = Byte.parseByte(entry.getValue());
+            }
+
+            // Fetch the question text (or other metadata) for display purposes
+            MCQ mcq = mcqService.getById(questionId); // Adjust your service method accordingly
+
+            // Map the question text to the selected option
+            userMap.put(mcq, selectedOption);
+            if (selectedOption!=null) {
+                if (mcq.getAnswers().equals(selectedOption.toString())) {
+                    correctAnswers++;
+                }
+            }
+        }
+
+        // Add userMap (user-readable answers) to the model for use in the JSP
+        model.addAttribute("totalQuestions", userMap.size());
+        model.addAttribute("attemptedQuestions", attemptedQuestions);
+        model.addAttribute("correctAnswers", correctAnswers);
+        model.addAttribute("accuracy", correctAnswers*100.0/userMap.size());
+        model.addAttribute("attemptAccuracy", correctAnswers*100.0/attemptedQuestions);
+        model.addAttribute("attemptPercentage", attemptedQuestions*100/userAnswers.size());
+        model.addAttribute("userAnswers", userMap);
+
+        return "quizResult.jsp";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @GetMapping("/domains")
     @ResponseBody
@@ -122,5 +182,15 @@ public class MCQCOntroller {
     public List<String> getTopicsByDomain(@RequestParam("domain") List<String> domains) {
         return mcqService.getTopicsByDomain(domains);
     }
+
+    @GetMapping("/credits")
+    @ResponseBody
+    public  List<String> getCreditsByTopicAndDomain(
+        @RequestParam("domain") List<String> domains,
+         @RequestParam("topic") List<String> topics
+    ) {
+        return mcqService.getCreditsByTopicAndDomain(domains,topics);
+    }
+    
     
 }
