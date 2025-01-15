@@ -9,7 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,14 +22,17 @@ import lombok.ToString;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private LocalDate dob;
-    private String image;
+
+    @OneToOne
+    @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
+    private Image profilePicture;
     private String role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "credit")
@@ -38,14 +43,22 @@ public class User {
     @ToString.Exclude
     private List<Token> tokens;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "maker")
+    @ToString.Exclude
+    private List<Test> tests;
 
-    public User(Long id, String name, String email, String password, LocalDate dob, String image, String role) {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taker")
+    @ToString.Exclude
+    private List<Result> results;
+
+
+    public User(Long id, String name, String email, String password, LocalDate dob, Image profilePicture, String role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.dob = dob;
-        this.image = image;
+        this.profilePicture = profilePicture;
         this.role = role;
     }
      public User(){}

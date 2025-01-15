@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -29,8 +31,15 @@ public class MCQ {
     private String question;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "mcq")
-    @ToString.Exclude
     private List<Option> options;
+
+    @ManyToMany
+    @JoinTable(
+        name = "mcq_test",
+        joinColumns = @JoinColumn(name = "mcq_id"),
+        inverseJoinColumns = @JoinColumn(name = "test_id")
+    )
+    private List<Test> tests;
 
     private String answers;
 

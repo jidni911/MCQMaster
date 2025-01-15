@@ -25,11 +25,12 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
+        model.addAttribute("date", "2025");
         model.addAttribute("totalMCQ", mcqService.getTotalMCQ());
         
         model.addAttribute("users", userService.getAll());
         model.addAttribute("MCQs", mcqService.getDemoMCQ());
-        model.addAttribute("user", new User(1L,"demo user","demo@email.com","123123",LocalDate.now(),"img.png","dev"));
+        model.addAttribute("user", new User(1L,"demo user","demo@email.com","123123",LocalDate.now(),null,"user"));
        
         model.addAttribute("userTotalMcqs", 20);
         model.addAttribute("userTestsTaken", 5);

@@ -131,4 +131,10 @@ public class MCQService {
                 }
                 return mcqRepository.findAllForQuiz(numQuestions,selectedDomains,selectedTopics,selectedCredits);
     }
+    public List<MCQ> getAll() {
+        return mcqRepository.findAll();
+    }
+    public void deleteById(Long id) {
+        mcqRepository.deleteById(id);
+    }
 }

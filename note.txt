@@ -27,3 +27,10 @@ spring-oracle	Oracle database jdbc url and properties
 spring-postgresql	PostgreSQL database jdbc url and properties
 spring-mysql	MySQL database jdbc url and properties
 spring-h2	H2 database jdbc url and properties
+
+
+check email before sign up
+
+mcq manager search
+
+on editing mcq, options are added, updated, but not removed

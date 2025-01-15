@@ -23,7 +23,7 @@
                     <h3 class="mb-0">User Registration</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/user/signup" method="post">
+                    <form action="/user/signup" method="post" enctype="multipart/form-data">
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold">Name</label>
@@ -50,7 +50,7 @@
                         <!-- Image -->
                         <div class="mb-3">
                             <label for="image" class="form-label fw-bold">Image URL</label>
-                            <input type="url" class="form-control" id="image" name="image"
+                            <input type="file" class="form-control" id="image" name="image" required accept="image/*" 
                                 placeholder="Enter the image URL">
                         </div>
                         <!-- Submit Button -->

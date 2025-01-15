@@ -64,11 +64,12 @@
             <main class="container py-5">
                 <div class="  card-sm mt-4 ">
                     <div class=" bg-success text-white p-2 mb-3 rounded">
-                        <h2>Quiz of ${mcqList.size()} question</h2>
+                        <h2>Quiz of ${test.getMcqs().size()} question (by ${test.maker.name})</h2>
                     </div>
                     <% int i=1; %>
                         <form method="post" action="/mcq/submitQuiz">
-                            <c:forEach var="mcq" items="${mcqList}">
+                            <input type="hidden" name="testID" value="${test.id}">
+                            <c:forEach var="mcq" items="${test.getMcqs()}">
                                 <div class="mb-3 card shadow">
                                     <p class="card-header d-flex">
                                         <strong class="col-8">

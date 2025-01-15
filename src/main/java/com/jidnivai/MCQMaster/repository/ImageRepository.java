@@ -3,10 +3,9 @@ package com.jidnivai.MCQMaster.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.jidnivai.MCQMaster.entity.User;
+import com.jidnivai.MCQMaster.entity.Image;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Long>{
+public interface ImageRepository extends JpaRepository<Image,Long>{
 
-    User findByEmail(String email);
 }
