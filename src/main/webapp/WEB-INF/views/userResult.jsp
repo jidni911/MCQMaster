@@ -96,7 +96,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <a href="/quiz/view/${quiz.id}" class="btn btn-primary btn-sm">View Result</a>
+                                <a href="<c:url value='/mcq/viewResult/${result.id}' />" class="btn btn-primary btn-sm">View Result</a>
                                 <a href="/quiz/retake/${quiz.id}" class="btn btn-secondary btn-sm">Retake</a>
                             </td>
                         </tr>
@@ -133,7 +133,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <a href="/quiz/viewResult/${result.id}" class="btn btn-primary btn-sm">View Result</a>
+                                <a href="/mcq/viewResult/${result.id}" class="btn btn-primary btn-sm">View Result</a>
                                 <a href="/quiz/retake/${quiz.id}" class="btn btn-secondary btn-sm">Retake</a>
                             </td>
                         </tr>

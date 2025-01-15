@@ -2,7 +2,6 @@ package com.jidnivai.MCQMaster.entity;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.core.type.TypeReference;
