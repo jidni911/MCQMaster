@@ -24,13 +24,17 @@ public class UserService {
     @Autowired
     ImageRepository imageRepository;
 
-    public void signup(User user){
-        userRepository.save(user);   
+    public User signup(User user){
+        if(userRepository.findByEmail(user.getEmail())==null){
+            return userRepository.save(user);   
+        } else {
+            return null;
+        }
     }
 
     public User login(String mail, String pass) {
         User user = userRepository.findByEmail(mail);
-        if (user.getPassword().equals(pass)){
+        if (user!=null && user.getPassword().equals(pass)){
             return user;
         } else {
             return null;

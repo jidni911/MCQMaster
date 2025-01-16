@@ -104,7 +104,12 @@
             <!-- Credit -->
             <div class="mb-3">
               <label for="credit" class="form-label fw-bold">Credit</label>
-              <input type="text" class="form-control" id="credit" name="credit" readonly value="${user.id}">
+              <input type="hidden" class="form-control" id="credit" name="credit" readonly value="${user.id}">
+              <input type="text" class="form-control" id="creditName" readonly >
+              <script>
+                document.getElementById("credit").value = localStorage.getItem("id");
+                document.getElementById("creditName").value = localStorage.getItem("name");
+              </script>
             </div>
 
             <!-- Domain -->

@@ -1,5 +1,6 @@
 package com.jidnivai.MCQMaster.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -24,6 +25,8 @@ public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
+    private LocalDateTime time;
 
     @ManyToOne
     @ToString.Exclude

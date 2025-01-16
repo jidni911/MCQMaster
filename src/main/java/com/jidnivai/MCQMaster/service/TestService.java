@@ -1,5 +1,7 @@
 package com.jidnivai.MCQMaster.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,9 @@ public class TestService {
 
     public Test getById(Long testID) {
         return testRepository.findById(testID).get();
+    }
+
+    public List<Test> getAll(){
+        return testRepository.findAll();
     }
 }

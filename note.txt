@@ -29,8 +29,23 @@ spring-mysql	MySQL database jdbc url and properties
 spring-h2	H2 database jdbc url and properties
 
 
-check email before sign up
 
 mcq manager search
 
 on editing mcq, options are added, updated, but not removed
+
+
+
+
+
+
+
+
+Web Development: Spring, Angular, HTML, JavaScript, JSP
+Science: Physics, Chemistry, Biology, Environmental Science
+Math: Algebra, Calculus, Geometry, Statistics
+History: World History, Ancient Civilizations, Modern History, Medieval History
+Grammar: Sentence Structure, Punctuation, Vocabulary, Tenses
+Technology: AI/ML, Database Management, Cloud Computing, Cybersecurity
+Languages: English, Spanish, French, German
+Art: Painting, Sketching, Photography, Sculpture

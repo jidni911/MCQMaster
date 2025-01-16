@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Random;
 
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,13 +50,33 @@ public class MCQCOntroller {
         if (!success.equals(null)) {
             showSuccessMessege = success.equals("true");
         }
-        Long id = 3L;// TODO get id
-        model.addAttribute("user", userService.getById(id));
         model.addAttribute("showSuccessMessege", showSuccessMessege);
         model.addAttribute("domain", domain);
         model.addAttribute("topic", topic);
         return "createMCQ.jsp";
     }
+
+//     @GetMapping("/generateMCQs")
+//     public String generateMCQs() {
+//     // Data for MCQs
+//     List<String[]> topicsAndQuestions = List.of(  
+//        );
+
+//     // Generate MCQs
+//     Random random = new Random();
+//     for (String[] data : topicsAndQuestions) {
+//         String topic = data[0];
+//         String question = data[1];
+//         String[] options = {data[2], data[3], data[4], data[5]};
+//         String answers = data[6];
+//         Long credit = (long) (random.nextInt(5) + 1); // Random credit between 1-5
+
+//         // Call saveMCQ method
+//         saveMCQ(question, options, answers, credit, topic, "History");
+//     }
+
+//     return "redirect:/mcq/create?success=true";
+// }
 
     @PostMapping("/create")
     public String saveMCQ(
@@ -315,5 +334,15 @@ public class MCQCOntroller {
             @RequestParam("topic") List<String> topics) {
         return mcqService.getCreditsByTopicAndDomain(domains, topics);
     }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<MCQ> searchMCQs(
+            @RequestParam(required = false) String domain,
+            @RequestParam(required = false) String topic,
+            @RequestParam(required = false) String credit) {
+        return mcqService.searchMCQs(domain, topic, credit);
+    }
+
 
 }

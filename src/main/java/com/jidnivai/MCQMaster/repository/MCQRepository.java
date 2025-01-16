@@ -50,5 +50,12 @@ public interface MCQRepository extends JpaRepository<MCQ,Long>{
     
 
 
+    @Query("SELECT m FROM MCQ m " +
+    "WHERE (:domain IS NULL OR LOWER(m.domain) LIKE LOWER(CONCAT('%', :domain, '%'))) " +
+    "AND (:topic IS NULL OR LOWER(m.topic) LIKE LOWER(CONCAT('%', :topic, '%'))) " +
+    "AND (:credit IS NULL OR LOWER(m.credit.name) LIKE LOWER(CONCAT('%', :credit, '%')))")
+List<MCQ> searchMCQs(@Param("domain") String domain,
+                  @Param("topic") String topic,
+                  @Param("credit") String credit);
 
 }

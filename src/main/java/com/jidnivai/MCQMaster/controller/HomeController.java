@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.jidnivai.MCQMaster.entity.User;
 import com.jidnivai.MCQMaster.service.MCQService;
+import com.jidnivai.MCQMaster.service.TestService;
 import com.jidnivai.MCQMaster.service.UserService;
 
 
@@ -22,6 +23,8 @@ public class HomeController {
     MCQService mcqService;
     @Autowired
     UserService userService;
+    @Autowired
+    TestService testService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -53,6 +56,8 @@ public class HomeController {
         model.addAttribute("totalErrors", 50);
         model.addAttribute("monthlyVisitors", 25000);
         model.addAttribute("bounceRate", 45);
+
+        model.addAttribute("tests", testService.getAll());
         return "index.jsp";
     }
 

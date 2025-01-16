@@ -2,6 +2,8 @@ package com.jidnivai.MCQMaster.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,7 @@ public class MCQ {
         joinColumns = @JoinColumn(name = "mcq_id"),
         inverseJoinColumns = @JoinColumn(name = "test_id")
     )
+    @JsonIgnore
     private List<Test> tests;
 
     private String answers;

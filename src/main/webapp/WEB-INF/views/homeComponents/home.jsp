@@ -30,7 +30,7 @@
 
       <!-- Call-to-Action Buttons -->
       <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-        <a href="/mcq/create" class="btn btn-primary btn-lg px-4">Add MCQs</a>
+        <a href="/mcq/quiz" class="btn btn-primary btn-lg px-4">Practice MCQs</a>
         <button onclick="navBartest.click()" class="btn btn-outline-light btn-lg px-4">Take a Test</button>
         <a href="/mcq/results" class="btn btn-success btn-lg px-4">View Results</a>
       </div>

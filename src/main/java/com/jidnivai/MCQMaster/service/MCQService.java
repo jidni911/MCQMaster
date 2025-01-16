@@ -137,4 +137,8 @@ public class MCQService {
     public void deleteById(Long id) {
         mcqRepository.deleteById(id);
     }
+   
+    public List<MCQ> searchMCQs(String domain, String topic, String credit) {
+         return mcqRepository.searchMCQs(domain, topic, credit);
+    }
 }

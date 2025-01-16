@@ -3,6 +3,8 @@ package com.jidnivai.MCQMaster.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,11 +34,14 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
+    @ToString.Exclude
+    @JsonIgnore
     private Image profilePicture;
     private String role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "credit")
     @ToString.Exclude
+    @JsonIgnore
     private List<MCQ> mcqs;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -45,10 +50,12 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "maker")
     @ToString.Exclude
+    @JsonIgnore
     private List<Test> tests;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taker")
     @ToString.Exclude
+    @JsonIgnore
     private List<Result> results;
 
 

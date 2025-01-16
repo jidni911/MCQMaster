@@ -34,19 +34,25 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String setUser(@RequestParam String logginginMail, @RequestParam String logginginPassword, Model model) {
+    public String setUser(
+        @RequestParam String logginginMail,
+        @RequestParam String logginginPassword,
+        @RequestParam(required = false) String rememberMe,
+        Model model) {
+            if(rememberMe==null){
+                rememberMe = "no";
+            }
         User loggedinUser = userService.login(logginginMail,logginginPassword);
         if( loggedinUser!=null){
             model.addAttribute("totalMCQ", mcqService.getTotalMCQ());
             model.addAttribute("user", loggedinUser);
-           
+            model.addAttribute("rememberMe", rememberMe);
             return "index.jsp";
             
         } else {
-            return "user/login";
+            model.addAttribute("messege","incorrect email or password");
+            return "login.jsp";
         }
-
-
     }
 
     @GetMapping("/signup")
@@ -60,7 +66,8 @@ public class UserController {
         @RequestParam String email,
         @RequestParam String password,
         @RequestParam String dob,
-        @RequestParam MultipartFile image
+        @RequestParam MultipartFile image,
+        Model model
     ) {
 
    User user = new User();
@@ -80,7 +87,10 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        userService.signup(user);
+        if(userService.signup(user)==null){
+            model.addAttribute("messege","email already exist");
+            return "signup.jsp";
+        }
 
         // Redirect to a success page
         return "redirect:/user/login";
