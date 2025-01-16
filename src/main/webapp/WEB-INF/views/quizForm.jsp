@@ -67,6 +67,14 @@
         <main>
 
             <form class="container py-5" method="post" action="/mcq/quiz">
+                <input type="hidden" id="userId" name="userId">
+                <script>
+                    if(localStorage.getItem("id")){
+                    document.getElementById("userId").value= localStorage.getItem("id");
+                  } else if(sessionStorage.getItem("id")){
+                    document.getElementById("userId").value= sessionStorage.getItem("id");
+                  }
+                </script>
                 <div class="card-header bg-primary text-white text-center p-2 rounded rounded-5 m-5">
                     <h2>What do you want, ${user.name} ?</h2>
                 </div>

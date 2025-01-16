@@ -68,6 +68,14 @@
                     </div>
                     <% int i=1; %>
                         <form method="post" action="/mcq/submitQuiz">
+                            <input type="hidden" id="userId" name="userId">
+                            <script>
+                                if(localStorage.getItem("id")){
+                                document.getElementById("userId").value= localStorage.getItem("id");
+                            } else if(sessionStorage.getItem("id")){
+                                document.getElementById("userId").value= sessionStorage.getItem("id");
+                            }
+                            </script>
                             <input type="hidden" name="testID" value="${test.id}">
                             <c:forEach var="mcq" items="${test.getMcqs()}">
                                 <div class="mb-3 card shadow">

@@ -2,7 +2,6 @@ package com.jidnivai.MCQMaster.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -10,8 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -35,14 +32,7 @@ public class MCQ {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "mcq")
     private List<Option> options;
 
-    @ManyToMany
-    @JoinTable(
-        name = "mcq_test",
-        joinColumns = @JoinColumn(name = "mcq_id"),
-        inverseJoinColumns = @JoinColumn(name = "test_id")
-    )
-    @JsonIgnore
-    private List<Test> tests;
+    
 
     private String answers;
 

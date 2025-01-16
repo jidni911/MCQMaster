@@ -49,7 +49,7 @@
         <h5 class="card-title text-center">Your Tests</h5>
         <div class="table-responsive">
           <table
-            class="table table-striped table-hover table-borderless table-primary align-middle"
+            class="table table-striped table-hover table-borderless  align-middle"
           >
             <thead class="table-light">
               <caption>
@@ -67,7 +67,7 @@
             </thead>
             <tbody class="table-group-divider">
               <c:forEach var="test" items="${tests}">
-                <tr class="">
+                <tr >
                   <td>${test.id}</td>
                   <td>${test.name}</td>
                   <td>${test.time}</td>
@@ -79,7 +79,7 @@
                       name=""
                       id=""
                       class="btn btn-primary"
-                      href="#"
+                      href="/test/viewQuestions/${test.id}"
                       role="button"
                       >View Questions
                     </a>
@@ -89,7 +89,7 @@
                       name=""
                       id=""
                       class="btn btn-primary"
-                      href="#"
+                      href="/test/viewQuestions/${test.id}#submits"
                       role="button"
                       >View Submits</a
                     >

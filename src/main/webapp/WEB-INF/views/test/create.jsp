@@ -83,7 +83,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     </header>
     <main class="container mt-4">
         <h1>Create Test</h1>
-        <form action="/quiz/create" method="post">
+        <form action="/test/create" method="post">
             <!-- Name Field -->
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -93,13 +93,23 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <!-- Time Field -->
             <div class="mb-3">
                 <label for="time" class="form-label">Time</label>
-                <input type="datetime-local" class="form-control" id="time" name="time" required>
+                <input type="datetime-local" class="form-control" id="time" name="time" readonly value="${time}">
             </div>
     
             <!-- Maker (User) Readonly -->
             <div class="mb-3">
                 <label for="maker" class="form-label">Maker</label>
-                <input type="text" class="form-control" id="maker" name="maker" value="{{ maker.name }}" readonly>
+                <input type="hidden" class="form-control" id="maker" name="maker" value="" readonly>
+                <input type="text" class="form-control" id="maker2" name="" value="" readonly>
+                <script>
+                  if(localStorage.getItem("id")){
+                    document.getElementById("maker").value= localStorage.getItem("id");
+                    document.getElementById("maker2").value= localStorage.getItem("name");
+                  } else if(sessionStorage.getItem("id")){
+                    document.getElementById("maker").value= sessionStorage.getItem("id");
+                    document.getElementById("maker2").value= sessionStorage.getItem("name");
+                  }
+                </script>
             </div>
     
             <!-- Search Fields -->
@@ -121,14 +131,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <!-- MCQ Selection Boxes -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="unselected-mcqs" class="form-label">Unselected MCQs</label>
+                    <label for="unselected-mcqs" class="form-label">Unselected MCQs (<span id="umcqCount">0</span>)</label>
                     <select class="form-select" id="unselected-mcqs" size="10" multiple>
                         <!-- Options populated dynamically -->
                     </select>
                 </div>
     
                 <div class="col-md-6">
-                    <label for="selected-mcqs" class="form-label">Selected MCQs</label>
+                    <label for="selected-mcqs" class="form-label">Selected MCQs (<span id="smcqCount">0</span>)</label>
                     <select class="form-select" id="selected-mcqs" name="mcqs" size="10" multiple>
                         <!-- Options populated dynamically -->
                     </select>
@@ -161,9 +171,10 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             mcqs.forEach(mcq => {
                 const option = document.createElement('option');
                 option.value = mcq.id;
-                option.textContent = "("+mcq.domain+"," + mcq.topic+")"+ mcq.question;
+                option.textContent = "("+mcq.domain+"," + mcq.topic+","+mcq.credit.name+")"+ mcq.question;
                 unselectedMCQs.appendChild(option);
             });
+            document.getElementById("umcqCount").innerHTML = unselectedMCQs.children.length;
         }
     
         function moveToSelected() {
@@ -174,6 +185,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 unselectedMCQs.removeChild(option);
                 selectedMCQs.appendChild(option);
             });
+            document.getElementById("smcqCount").innerHTML = selectedMCQs.children.length;
+            document.getElementById("umcqCount").innerHTML = unselectedMCQs.children.length;
         }
     
         function moveToUnselected() {
@@ -184,6 +197,8 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 selectedMCQs.removeChild(option);
                 unselectedMCQs.appendChild(option);
             });
+            document.getElementById("smcqCount").innerHTML = selectedMCQs.children.length;
+            document.getElementById("umcqCount").innerHTML = unselectedMCQs.children.length;
         }
     </script>
     

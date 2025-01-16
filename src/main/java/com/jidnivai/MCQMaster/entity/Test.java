@@ -33,7 +33,7 @@ public class Test {
     @JoinColumn(name="MAKER_ID", referencedColumnName = "id", nullable = false)
     private User maker;
 
-    @ManyToMany(mappedBy = "tests")
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<MCQ> mcqs;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "test")

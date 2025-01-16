@@ -1,5 +1,6 @@
 package com.jidnivai.MCQMaster.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,26 +57,6 @@ public class MCQCOntroller {
         return "createMCQ.jsp";
     }
 
-//     @GetMapping("/generateMCQs")
-//     public String generateMCQs() {
-//     // Data for MCQs
-//     List<String[]> topicsAndQuestions = List.of(  
-//        );
-
-//     // Generate MCQs
-//     Random random = new Random();
-//     for (String[] data : topicsAndQuestions) {
-//         String topic = data[0];
-//         String question = data[1];
-//         String[] options = {data[2], data[3], data[4], data[5]};
-//         String answers = data[6];
-//         Long credit = (long) (random.nextInt(5) + 1); // Random credit between 1-5
-
-//         // Call saveMCQ method
-//         saveMCQ(question, options, answers, credit, topic, "History");
-//     }
-
-//     return "redirect:/mcq/create?success=true";
 // }
 
     @PostMapping("/create")
@@ -118,6 +99,7 @@ public class MCQCOntroller {
 
     @PostMapping("/quiz")
     public String quizTaker(
+            @RequestParam String userId,
             @RequestParam(required = false) Integer numQuestions,
             @RequestParam(required = false) String[] selectedDomains,
             @RequestParam(required = false) String[] selectedTopics,
@@ -127,7 +109,9 @@ public class MCQCOntroller {
         List<MCQ> mcqList = mcqService.getMcqListForQuiz(numQuestions, selectedDomains, selectedTopics,
                 selectedCredits);
         Test test = new Test();
-        test.setMaker(userService.getById(1L));// TODO
+        test.setMaker(userService.getById(Long.parseLong(userId)));
+        test.setName("Self");
+        test.setTime(LocalDateTime.now());
         test.setMcqs(mcqList);
         test = testService.add(test);
         model.addAttribute("test", test);
@@ -191,12 +175,12 @@ public class MCQCOntroller {
     // /mcq/submitQuiz
     @PostMapping("/submitQuiz")
     public String submitQuiz(
+        @RequestParam String userId,
             @RequestParam String testID,
             @RequestParam Map<String, String> userAnswers,
             Model model) {
         Result result = new Result();
-        result.setTaker(userService.getById(1L));// TODO
-        // result.setTest(testService.getById(Long.parseLong(testID)));
+        result.setTaker(userService.getById(Long.parseLong(userId)));
         result.setTest(testService.getById(Long.parseLong(testID)));
 
         // Iterate through the userAnswers map
@@ -204,7 +188,7 @@ public class MCQCOntroller {
         int attemptedQuestions = 0;
         Map<MCQ, Byte> userMap = new HashMap<>();
         for (Map.Entry<String, String> entry : userAnswers.entrySet()) {
-            if (entry.getKey().equals("testID")) {
+            if (entry.getKey().equals("testID") || entry.getKey().equals("userId")) {
                 continue;
             }
             Long questionId = Long.parseLong(entry.getKey()); // Question ID
@@ -227,6 +211,7 @@ public class MCQCOntroller {
             }
         }
         result.setSuccessCount(correctAnswers);
+        result.setAttemptCount(attemptedQuestions);
         result.setUserAnswers(userMap);
         result = resultService.add(result);
 

@@ -110,6 +110,14 @@
 
                         <form method="post" action="/mcq/submitQuiz">
                             <input type="hidden" name="testID" value="${test.id}">
+                            <input type="hidden" id="userId" name="userId">
+                            <script>
+                                if(localStorage.getItem("id")){
+                                document.getElementById("userId").value= localStorage.getItem("id");
+                            } else if(sessionStorage.getItem("id")){
+                                document.getElementById("userId").value= sessionStorage.getItem("id");
+                            }
+                            </script>
                             <div class="question-container">
                                 <c:forEach var="mcq" items="${test.getMcqs()}" varStatus="status">
                                     <div class="question-card px-3" id="question-${status.index}">

@@ -45,6 +45,7 @@ public class Result {
     private Test test;
 
     private Integer successCount;
+    private Integer attemptCount;
 
     public Map<Long, Byte> getUserAnswers() {
         if (userAnswersJson == null || userAnswersJson.isEmpty()) {
