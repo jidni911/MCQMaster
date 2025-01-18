@@ -25,4 +25,8 @@ public class ResultService {
     public Result getById(Long id) {
         return resultRepository.findById(id).get();
     }
+
+    public Long getTotalSubmits() {
+        return resultRepository.count();
+    }
 }

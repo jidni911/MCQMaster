@@ -8,6 +8,7 @@
       localStorage.setItem("email","${user.email}")
       localStorage.setItem("name","${user.name}")
       localStorage.setItem("password","${user.password}")
+      window.location.href = "/"
     </script>
 </c:if>
 <c:if test="${user != null && rememberMe=='no' }">
@@ -16,6 +17,7 @@
       sessionStorage.setItem("email","${user.email}")
       sessionStorage.setItem("name","${user.name}")
       sessionStorage.setItem("password","${user.password}")
+      window.location.href = "/"
     </script>
 </c:if>
 <script>

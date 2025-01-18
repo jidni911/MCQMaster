@@ -1,6 +1,7 @@
 package com.jidnivai.MCQMaster.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -57,6 +58,10 @@ public class User {
     @ToString.Exclude
     @JsonIgnore
     private List<Result> results;
+
+    private LocalDateTime created_At;
+    private LocalDateTime updated_At;
+    private Boolean isAlive;
 
 
     public User(Long id, String name, String email, String password, LocalDate dob, Image profilePicture, String role) {

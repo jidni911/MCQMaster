@@ -1,6 +1,7 @@
 package com.jidnivai.MCQMaster.entity;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -46,6 +47,12 @@ public class Result {
 
     private Integer successCount;
     private Integer attemptCount;
+
+    private Long elapsedTime;
+
+    private LocalDateTime created_At;
+    private String privacy;
+    private Boolean isAlive;
 
     public Map<Long, Byte> getUserAnswers() {
         if (userAnswersJson == null || userAnswersJson.isEmpty()) {

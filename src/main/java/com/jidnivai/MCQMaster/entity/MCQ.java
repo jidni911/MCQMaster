@@ -1,5 +1,6 @@
 package com.jidnivai.MCQMaster.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -42,4 +43,10 @@ public class MCQ {
 
     private String topic;
     private String domain;
+
+    private LocalDateTime created_At;
+    private LocalDateTime updated_At;
+    private String privacy;
+    private Boolean isAlive;
+    private Long hitCount;
 }

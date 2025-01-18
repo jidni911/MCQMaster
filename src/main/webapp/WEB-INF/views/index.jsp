@@ -26,7 +26,6 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <header class="sticky-top">
       <!-- Nav tabs -->
       <%@ include file="homeComponents/nav.jsp" %>
-      
     </header>
     <main>
       <!-- Tab panes -->

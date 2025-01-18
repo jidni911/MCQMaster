@@ -45,4 +45,8 @@ public class TestService {
         test.setMcqs(mcqList);
         return testRepository.save(test);
     }
+
+    public Long getTotalTests() {
+        return testRepository.count();
+    }
 }

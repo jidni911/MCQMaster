@@ -1,14 +1,13 @@
 package com.jidnivai.MCQMaster.controller;
 
-import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.jidnivai.MCQMaster.entity.User;
 import com.jidnivai.MCQMaster.service.MCQService;
+import com.jidnivai.MCQMaster.service.ResultService;
 import com.jidnivai.MCQMaster.service.TestService;
 import com.jidnivai.MCQMaster.service.UserService;
 
@@ -25,15 +24,18 @@ public class HomeController {
     UserService userService;
     @Autowired
     TestService testService;
+    @Autowired 
+    ResultService resultService;
 
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("date", "2025");
         model.addAttribute("totalMCQ", mcqService.getTotalMCQ());
+        model.addAttribute("totalSubmits", resultService.getTotalSubmits());
+        model.addAttribute("totalTests", testService.getTotalTests());
         
         model.addAttribute("users", userService.getAll());
         model.addAttribute("MCQs", mcqService.getDemoMCQ());
-        model.addAttribute("user", new User(1L,"demo user","demo@email.com","123123",LocalDate.now(),null,"user"));
        
         model.addAttribute("userTotalMcqs", 20);
         model.addAttribute("userTestsTaken", 5);

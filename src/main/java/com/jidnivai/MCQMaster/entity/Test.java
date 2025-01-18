@@ -39,4 +39,8 @@ public class Test {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "test")
     @ToString.Exclude
     private List<Result> results;
+
+   
+    private String privacy;
+    private Boolean isAlive;
 }
